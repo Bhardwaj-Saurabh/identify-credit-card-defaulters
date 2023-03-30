@@ -11,3 +11,8 @@ imblearn==0.0
 pandas_summary==0.0.7
 scikit_learn==1.0
 shap==0.39.0
+pymongo
+certifi
+dill
+PyYAML
+-e .
