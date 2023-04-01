@@ -8,7 +8,8 @@ Step to follow on this project:
 - Training pipepline --> Completed
 
 Training Pipeline:
-1 - data ingestion pipeline
+
+1 - data ingestion pipeline -- > Completed
 
 2 - data validation pipeline
 
