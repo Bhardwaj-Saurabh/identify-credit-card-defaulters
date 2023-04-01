@@ -25,6 +25,7 @@ class TrainPipeline:
             pass
         except  Exception as e:
             raise  CustomException(e,sys)
+        
     
     def start_model_trainer(self):
         try:
