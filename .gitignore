@@ -1,4 +1,16 @@
-credit_card_defaul_prediction.egg-info
+credit_card_defaul_prediction.egg-info/.
 Data
 src/__pycache__/
 logs/
+*.egg-info/
+*.egg
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+artifact
+.vscode
+# C extensions
+*.so
