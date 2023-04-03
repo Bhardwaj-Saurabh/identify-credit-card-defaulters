@@ -1,0 +1,842 @@
+columns:
+- TransactionID_x: int
+- isFraud: int
+- TransactionDT: int
+- TransactionAmt: float
+- ProductCD: object
+- card1: int
+- card2: float
+- card3: float
+- card4: object
+- card5: float
+- card6: object
+- addr1: float
+- addr2: float
+- dist1: float
+- dist2: float
+- P_emaildomain: object
+- R_emaildomain: object
+- C1: float
+- C2: float
+- C3: float
+- C4: float
+- C5: float
+- C6: float
+- C7: float
+- C8: float
+- C9: float
+- C10: float
+- C11: float
+- C12: float
+- C13: float
+- C14: float
+- D1: float
+- D2: float
+- D3: float
+- D4: float
+- D5: float
+- D6: float
+- D7: float
+- D8: float
+- D9: float
+- D10: float
+- D11: float
+- D12: float
+- D13: float
+- D14: float
+- D15: float
+- M1: object
+- M2: object
+- M3: object
+- M4: object
+- M5: object
+- M6: object
+- M7: object
+- M8: object
+- M9: object
+- V1: float
+- V2: float
+- V3: float
+- V4: float
+- V5: float
+- V6: float
+- V7: float
+- V8: float
+- V9: float
+- V10: float
+- V11: float
+- V12: float
+- V13: float
+- V14: float
+- V15: float
+- V16: float
+- V17: float
+- V18: float
+- V19: float
+- V20: float
+- V21: float
+- V22: float
+- V23: float
+- V24: float
+- V25: float
+- V26: float
+- V27: float
+- V28: float
+- V29: float
+- V30: float
+- V31: float
+- V32: float
+- V33: float
+- V34: float
+- V35: float
+- V36: float
+- V37: float
+- V38: float
+- V39: float
+- V40: float
+- V41: float
+- V42: float
+- V43: float
+- V44: float
+- V45: float
+- V46: float
+- V47: float
+- V48: float
+- V49: float
+- V50: float
+- V51: float
+- V52: float
+- V53: float
+- V54: float
+- V55: float
+- V56: float
+- V57: float
+- V58: float
+- V59: float
+- V60: float
+- V61: float
+- V62: float
+- V63: float
+- V64: float
+- V65: float
+- V66: float
+- V67: float
+- V68: float
+- V69: float
+- V70: float
+- V71: float
+- V72: float
+- V73: float
+- V74: float
+- V75: float
+- V76: float
+- V77: float
+- V78: float
+- V79: float
+- V80: float
+- V81: float
+- V82: float
+- V83: float
+- V84: float
+- V85: float
+- V86: float
+- V87: float
+- V88: float
+- V89: float
+- V90: float
+- V91: float
+- V92: float
+- V93: float
+- V94: float
+- V95: float
+- V96: float
+- V97: float
+- V98: float
+- V99: float
+- V100: float
+- V101: float
+- V102: float
+- V103: float
+- V104: float
+- V105: float
+- V106: float
+- V107: float
+- V108: float
+- V109: float
+- V110: float
+- V111: float
+- V112: float
+- V113: float
+- V114: float
+- V115: float
+- V116: float
+- V117: float
+- V118: float
+- V119: float
+- V120: float
+- V121: float
+- V122: float
+- V123: float
+- V124: float
+- V125: float
+- V126: float
+- V127: float
+- V128: float
+- V129: float
+- V130: float
+- V131: float
+- V132: float
+- V133: float
+- V134: float
+- V135: float
+- V136: float
+- V137: float
+- V138: float
+- V139: float
+- V140: float
+- V141: float
+- V142: float
+- V143: float
+- V144: float
+- V145: float
+- V146: float
+- V147: float
+- V148: float
+- V149: float
+- V150: float
+- V151: float
+- V152: float
+- V153: float
+- V154: float
+- V155: float
+- V156: float
+- V157: float
+- V158: float
+- V159: float
+- V160: float
+- V161: float
+- V162: float
+- V163: float
+- V164: float
+- V165: float
+- V166: float
+- V167: float
+- V168: float
+- V169: float
+- V170: float
+- V171: float
+- V172: float
+- V173: float
+- V174: float
+- V175: float
+- V176: float
+- V177: float
+- V178: float
+- V179: float
+- V180: float
+- V181: float
+- V182: float
+- V183: float
+- V184: float
+- V185: float
+- V186: float
+- V187: float
+- V188: float
+- V189: float
+- V190: float
+- V191: float
+- V192: float
+- V193: float
+- V194: float
+- V195: float
+- V196: float
+- V197: float
+- V198: float
+- V199: float
+- V200: float
+- V201: float
+- V202: float
+- V203: float
+- V204: float
+- V205: float
+- V206: float
+- V207: float
+- V208: float
+- V209: float
+- V210: float
+- V211: float
+- V212: float
+- V213: float
+- V214: float
+- V215: float
+- V216: float
+- V217: float
+- V218: float
+- V219: float
+- V220: float
+- V221: float
+- V222: float
+- V223: float
+- V224: float
+- V225: float
+- V226: float
+- V227: float
+- V228: float
+- V229: float
+- V230: float
+- V231: float
+- V232: float
+- V233: float
+- V234: float
+- V235: float
+- V236: float
+- V237: float
+- V238: float
+- V239: float
+- V240: float
+- V241: float
+- V242: float
+- V243: float
+- V244: float
+- V245: float
+- V246: float
+- V247: float
+- V248: float
+- V249: float
+- V250: float
+- V251: float
+- V252: float
+- V253: float
+- V254: float
+- V255: float
+- V256: float
+- V257: float
+- V258: float
+- V259: float
+- V260: float
+- V261: float
+- V262: float
+- V263: float
+- V264: float
+- V265: float
+- V266: float
+- V267: float
+- V268: float
+- V269: float
+- V270: float
+- V271: float
+- V272: float
+- V273: float
+- V274: float
+- V275: float
+- V276: float
+- V277: float
+- V278: float
+- V279: float
+- V280: float
+- V281: float
+- V282: float
+- V283: float
+- V284: float
+- V285: float
+- V286: float
+- V287: float
+- V288: float
+- V289: float
+- V290: float
+- V291: float
+- V292: float
+- V293: float
+- V294: float
+- V295: float
+- V296: float
+- V297: float
+- V298: float
+- V299: float
+- V300: float
+- V301: float
+- V302: float
+- V303: float
+- V304: float
+- V305: float
+- V306: float
+- V307: float
+- V308: float
+- V309: float
+- V310: float
+- V311: float
+- V312: float
+- V313: float
+- V314: float
+- V315: float
+- V316: float
+- V317: float
+- V318: float
+- V319: float
+- V320: float
+- V321: float
+- V322: float
+- V323: float
+- V324: float
+- V325: float
+- V326: float
+- V327: float
+- V328: float
+- V329: float
+- V330: float
+- V331: float
+- V332: float
+- V333: float
+- V334: float
+- V335: float
+- V336: float
+- V337: float
+- V338: float
+- V339: float
+- TransactionID_y: int
+- id_01: float
+- id_02: float
+- id_03: float
+- id_04: float
+- id_05: float
+- id_06: float
+- id_07: float
+- id_08: float
+- id_09: float
+- id_10: float
+- id_11: float
+- id_12: object
+- id_13: float
+- id_14: float
+- id_15: object
+- id_16: object
+- id_17: float
+- id_18: float
+- id_19: float
+- id_20: float
+- id_21: float
+- id_22: float
+- id_23: object
+- id_24: float
+- id_25: float
+- id_26: float
+- id_27: object
+- id_28: object
+- id_29: object
+- id_30: object
+- id_31: object
+- id_32: float
+- id_33: object
+- id_34: object
+- id_35: object
+- id_36: object
+- id_37: object
+- id_38: object
+- DeviceType: object
+- DeviceInfo: object
+
+numerical_columns:
+- TransactionID_x
+- isFraud
+- TransactionDT
+- TransactionAmt
+- card1
+- card2
+- card3
+- card5
+- addr1
+- addr2
+- dist1
+- dist2
+- C1
+- C2
+- C3
+- C4
+- C5
+- C6
+- C7
+- C8
+- C9
+- C10
+- C11
+- C12
+- C13
+- C14
+- D1
+- D2
+- D3
+- D4
+- D5
+- D6
+- D7
+- D8
+- D9
+- D10
+- D11
+- D12
+- D13
+- D14
+- D15
+- V1
+- V2
+- V3
+- V4
+- V5
+- V6
+- V7
+- V8
+- V9
+- V10
+- V11
+- V12
+- V13
+- V14
+- V15
+- V16
+- V17
+- V18
+- V19
+- V20
+- V21
+- V22
+- V23
+- V24
+- V25
+- V26
+- V27
+- V28
+- V29
+- V30
+- V31
+- V32
+- V33
+- V34
+- V35
+- V36
+- V37
+- V38
+- V39
+- V40
+- V41
+- V42
+- V43
+- V44
+- V45
+- V46
+- V47
+- V48
+- V49
+- V50
+- V51
+- V52
+- V53
+- V54
+- V55
+- V56
+- V57
+- V58
+- V59
+- V60
+- V61
+- V62
+- V63
+- V64
+- V65
+- V66
+- V67
+- V68
+- V69
+- V70
+- V71
+- V72
+- V73
+- V74
+- V75
+- V76
+- V77
+- V78
+- V79
+- V80
+- V81
+- V82
+- V83
+- V84
+- V85
+- V86
+- V87
+- V88
+- V89
+- V90
+- V91
+- V92
+- V93
+- V94
+- V95
+- V96
+- V97
+- V98
+- V99
+- V100
+- V101
+- V102
+- V103
+- V104
+- V105
+- V106
+- V107
+- V108
+- V109
+- V110
+- V111
+- V112
+- V113
+- V114
+- V115
+- V116
+- V117
+- V118
+- V119
+- V120
+- V121
+- V122
+- V123
+- V124
+- V125
+- V126
+- V127
+- V128
+- V129
+- V130
+- V131
+- V132
+- V133
+- V134
+- V135
+- V136
+- V137
+- V138
+- V139
+- V140
+- V141
+- V142
+- V143
+- V144
+- V145
+- V146
+- V147
+- V148
+- V149
+- V150
+- V151
+- V152
+- V153
+- V154
+- V155
+- V156
+- V157
+- V158
+- V159
+- V160
+- V161
+- V162
+- V163
+- V164
+- V165
+- V166
+- V167
+- V168
+- V169
+- V170
+- V171
+- V172
+- V173
+- V174
+- V175
+- V176
+- V177
+- V178
+- V179
+- V180
+- V181
+- V182
+- V183
+- V184
+- V185
+- V186
+- V187
+- V188
+- V189
+- V190
+- V191
+- V192
+- V193
+- V194
+- V195
+- V196
+- V197
+- V198
+- V199
+- V200
+- V201
+- V202
+- V203
+- V204
+- V205
+- V206
+- V207
+- V208
+- V209
+- V210
+- V211
+- V212
+- V213
+- V214
+- V215
+- V216
+- V217
+- V218
+- V219
+- V220
+- V221
+- V222
+- V223
+- V224
+- V225
+- V226
+- V227
+- V228
+- V229
+- V230
+- V231
+- V232
+- V233
+- V234
+- V235
+- V236
+- V237
+- V238
+- V239
+- V240
+- V241
+- V242
+- V243
+- V244
+- V245
+- V246
+- V247
+- V248
+- V249
+- V250
+- V251
+- V252
+- V253
+- V254
+- V255
+- V256
+- V257
+- V258
+- V259
+- V260
+- V261
+- V262
+- V263
+- V264
+- V265
+- V266
+- V267
+- V268
+- V269
+- V270
+- V271
+- V272
+- V273
+- V274
+- V275
+- V276
+- V277
+- V278
+- V279
+- V280
+- V281
+- V282
+- V283
+- V284
+- V285
+- V286
+- V287
+- V288
+- V289
+- V290
+- V291
+- V292
+- V293
+- V294
+- V295
+- V296
+- V297
+- V298
+- V299
+- V300
+- V301
+- V302
+- V303
+- V304
+- V305
+- V306
+- V307
+- V308
+- V309
+- V310
+- V311
+- V312
+- V313
+- V314
+- V315
+- V316
+- V317
+- V318
+- V319
+- V320
+- V321
+- V322
+- V323
+- V324
+- V325
+- V326
+- V327
+- V328
+- V329
+- V330
+- V331
+- V332
+- V333
+- V334
+- V335
+- V336
+- V337
+- V338
+- V339
+- TransactionID_y
+- id_01
+- id_02
+- id_03
+- id_04
+- id_05
+- id_06
+- id_07
+- id_08
+- id_09
+- id_10
+- id_11
+- id_13
+- id_14
+- id_17
+- id_18
+- id_19
+- id_20
+- id_21
+- id_22
+- id_24
+- id_25
+- id_26
+- id_32

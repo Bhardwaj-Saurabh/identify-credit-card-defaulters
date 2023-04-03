@@ -1,7 +1,7 @@
 # Identify Credit Card Defaulters
-An end to end machine learning application to identify credit card defaulters
+An end to end machine learning application to identify credit card default transaction.
 
-<img src="https://chargebacks911.com/wp-content/uploads/2020/01/Credit-Card-Transaction-Process-blog-1.jpg">
+<img src="https://hceconomics.uchicago.edu/sites/default/files/styles/feature/public/news/iStock-1058694620-HCEO.jpg">
 
 Step to follow on this project: 
 

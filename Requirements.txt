@@ -11,7 +11,7 @@ imblearn==0.0
 pandas_summary==0.0.7
 scikit_learn==1.0
 shap==0.39.0
-pymongo
+pymongo==4.3.3
 certifi
 dill
 PyYAML

@@ -1,7 +1,7 @@
 from src.configuration.mongo_db_connection import MongoDBClient
 from src.exception import CustomException
 from src.pipeline.training_pipeline import TrainPipeline 
-import os,sys
+import os, sys
 from src.utils.main_utils import read_yaml_file
 from src.logger import logging
 
@@ -23,7 +23,6 @@ def main():
     except Exception as e:
         print(e)
         logging.exception(e)
-
 
 if __name__=="__main__":
     main()
