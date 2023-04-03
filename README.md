@@ -10,9 +10,13 @@ Step to follow on this project:
 
 Training Pipeline:
 
-1 - data ingestion pipeline -- > Completed
+1 - data ingestion pipeline --> Completed
 
-2 - data validation pipeline
+2 - data validation pipeline  --> Completed
+
+3 - data preprocessing pipeline --> Completed
+    - data drift monitoring -> pending
+    - feature engineering -> pending
 
 3 - data transformation pipeline
 
