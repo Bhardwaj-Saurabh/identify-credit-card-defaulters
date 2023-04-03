@@ -20,7 +20,7 @@ class DataPrepration:
         except Exception as e:
             raise  CustomException(e,sys)
 
-    @staticmethodc
+    @staticmethod
     def read_data(file_path)->pd.DataFrame:
         try:
             return pd.read_csv(file_path)
