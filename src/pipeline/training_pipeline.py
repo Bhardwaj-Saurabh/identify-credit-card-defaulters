@@ -1,13 +1,14 @@
 
-from src.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig
-from src.entity.config_entity import DataValidationConfig, DataPreprationConfig
-from src.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact
+from src.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig
+from src.entity.config_entity import DataPreprationConfig, DataTransformationConfig
+from src.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact, DataPreprationArtifact
 from src.exception import CustomException
 import sys,os
 from src.logger import logging
 from src.components.data_ingestion import DataIngestion
 from src.components.data_validation import DataValidation
 from src.components.data_prepration import DataPrepration
+from src.components.data_transformation import DataTransformation
 
 class TrainPipeline:
     is_pipeline_running=False
@@ -42,16 +43,20 @@ class TrainPipeline:
             data_prepration = DataPrepration(data_validation_artifact=data_validation_artifact,
                                              data_prepration_config=data_prepration_config)
             data_prepration_artifact = data_prepration.initiate_data_prepration()
+            return data_prepration_artifact
         except  Exception as e:
             raise  CustomException(e,sys)
 
-    def start_data_transformation(self):
+    def start_data_transformation(self, data_prepration_artifact:DataPreprationArtifact):
         try:
-            pass
+            data_transformation_config = DataTransformationConfig(training_pipeline_config=self.training_pipeline_config)
+            data_transformation = DataTransformation(data_prepration_artifact=data_prepration_artifact,
+                                                    data_transformation_config=data_transformation_config)
+            data_transformation_artifact =  data_transformation.initiate_data_transformation()
+            return data_transformation_artifact
         except  Exception as e:
             raise  CustomException(e,sys)
         
-    
     def start_model_trainer(self):
         try:
             pass
@@ -75,6 +80,7 @@ class TrainPipeline:
         try:
             data_ingestion_artifact:DataIngestionArtifact = self.start_data_ingestion()
             data_validation_artifact=self.start_data_validaton(data_ingestion_artifact=data_ingestion_artifact)
-            data_prepration_artifact = self.start_data_preprationtion(data_validation_artifact=data_validation_artifact)       
+            data_prepration_artifact = self.start_data_preprationtion(data_validation_artifact=data_validation_artifact)     
+            data_transformation_artifact = self.start_data_transformation(data_prepration_artifact=data_prepration_artifact)  
         except  Exception as e:
             raise  CustomException(e,sys)

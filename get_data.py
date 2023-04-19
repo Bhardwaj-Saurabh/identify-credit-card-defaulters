@@ -4,6 +4,7 @@ from src.constant.database import DATABASE_NAME
 from src.constant.training_pipeline import DATA_INGESTION_COLLECTION_NAME
 from main import set_env_variable
 import os
+
 if __name__=='__main__':
     transaction_data_file_path="/Data/train_transaction.csv"
     identity_data_file_path="/Data/train_identity.csv"

@@ -4,10 +4,11 @@ from src.entity.config_entity import DataPreprationConfig
 from src.exception import CustomException
 from src.logger import logging
 import pandas as pd
+from pandas import DataFrame
+import numpy as np
 import os,sys
 from typing import List
-from sklearn.model_selection import train_test_split
-from src.utils.main_utils import read_yaml_file, write_yaml_file
+from src.utils.main_utils import write_yaml_file, reduce_mem_usage
 from scipy.stats import ks_2samp
 
 class DataPrepration:
@@ -26,84 +27,52 @@ class DataPrepration:
             return pd.read_csv(file_path)
         except Exception as e:
             raise CustomException(e,sys)
-   
-    def preprocess_data(self, dataframe: pd.DataFrame)->pd.DataFrame:
+    
+    @staticmethod
+    def preprocess_data(df: pd.DataFrame)->pd.DataFrame:
         """
         Perform data preprocessing
         """
         try:
             logging.info("Adding missing values columns with missing flag")
             # Add flag column for missing values
-            for col in dataframe.columns:
-                dataframe[col+"_missing_flag"] = dataframe[col].isnull()
+            for col in df.columns:
+                df[col+"_missing_flag"] = df[col].isnull()
             logging.info("Missing values columns added")
-            return dataframe
+            return df
         except  Exception as e:
             raise  CustomException(e,sys)
         
     @staticmethod
-    def get_list_of_columns_to_drop(dataframe:pd.DataFrame)->List['str']:
+    def get_list_of_columns_to_drop(df:pd.DataFrame)->List[str]:
         try:
             logging.info("Getting the coloumn names with more than 90% missing values")
             # Drop the columns where one category contains more than 90% values
             drop_cols = []
-            for col in dataframe.columns:
-                missing_share = dataframe[col].isnull().sum()/dataframe.shape[0]
+            for col in df.columns:
+                missing_share = df[col].isnull().sum()/df.shape[0]
                 if missing_share > 0.9:
                     drop_cols.append(col)        
-            column_to_keep = [col for col in dataframe.columns if col not in drop_cols]    
+            column_to_keep = [col for col in df.columns if col not in drop_cols]    
 
             logging.info("coloumn names with more than 90% missing values collected")
 
             logging.info("Getting the coloumn names with zero standard deviation")
-
             # Drop the columns which have only one unique value
             drop_cols = []
             for col in column_to_keep:
-                unique_value = dataframe[col].nunique()
+                unique_value = df[col].nunique()
                 if unique_value == 1:
                     drop_cols.append(col)
-            column_to_keep = [col for col in column_to_keep if col not in drop_cols]
 
+            column_to_keep = [col for col in column_to_keep if col not in drop_cols]
             logging.info("coloumn names with Zero standard deviation collected")
 
             logging.info(f"Columns to keep in the dataset are: {column_to_keep}")
             return column_to_keep
         except Exception as e:
             raise CustomException(e, sys)
-        
-    def split_data_as_train_test(self, dataframe: pd.DataFrame) -> None:
-        """
-        Feature store dataset will be split into train and test file
-        """
-
-        try:
-            train_set, test_set = train_test_split(
-                dataframe, test_size=self.data_prepration_config.prepared_train_test_split_ratio
-            )
-            logging.info("Performed train test split on the dataframe")
-            logging.info(
-                "Exited split_data_as_train_test method of Data_Ingestion class"
-            )
-
-            dir_path = os.path.dirname(self.data_prepration_config.prepared_train_data_file_path)
-            print(dir_path)
-            os.makedirs(dir_path, exist_ok=True)
-
-            logging.info(f"Exporting train and test file path.")
-            train_set.to_csv(
-                self.data_prepration_config.prepared_train_data_file_path, index=False, header=True
-            )
-
-            test_set.to_csv(
-                self.data_prepration_config.prepared_test_data_file_path, index=False, header=True
-            )
-
-            logging.info(f"Exported train and test file path.")
-        except Exception as e:
-            raise CustomException(e,sys)
-        
-
+    
     def detect_dataset_drift(self,base_df,current_df,threshold=0.05)->bool:
         try:
             status=True
@@ -132,36 +101,55 @@ class DataPrepration:
             return status
         except Exception as e:
             raise CustomException(e,sys)
+    
+    @staticmethod
+    def create_domain_specific_features(df: DataFrame)-> DataFrame:
+        try:
+            logging.info(" Create feature based on Transaction amount based feature")
+            # Transaction amount minus mean of transaction 
+            df['Trans_min_mean'] = df['TransactionAmt'] - np.nanmean(df['TransactionAmt'],dtype="float64")
+            df['Trans_min_std']  = df['Trans_min_mean'] / np.nanstd(df['TransactionAmt'].astype("float64"),dtype="float64")
+            df['TransactionAmt'] = np.log(df['TransactionAmt'])
+
+            logging.info(" Creating Features for transaction amount and card ")
+           # Features for transaction amount and card 
+            df['TransactionAmt_to_mean_card1'] = df['TransactionAmt'] / df.groupby(['card1'])['TransactionAmt'].transform('mean')
+            df['TransactionAmt_to_mean_card4'] = df['TransactionAmt'] / df.groupby(['card4'])['TransactionAmt'].transform('mean')
+            
+            df['TransactionAmt_to_std_card1']  = df['TransactionAmt'] / df.groupby(['card1'])['TransactionAmt'].transform('std')
+            df['TransactionAmt_to_std_card4']  = df['TransactionAmt'] / df.groupby(['card4'])['TransactionAmt'].transform('std')
+            return df
+        except Exception as e:
+            raise CustomException(e, sys)
+
 
     def initiate_data_prepration(self)->DataPreprationArtifact:
         try:
             file_path = self.data_validation_artifact.valid_file_path
             dataframe = DataPrepration.read_data(file_path)
-            dataframe = self.preprocess_data(dataframe)
+            dataframe = DataPrepration.preprocess_data(dataframe)
 
             column_to_keep = DataPrepration.get_list_of_columns_to_drop(dataframe)
             dataframe = dataframe[column_to_keep]
+            dataframe = DataPrepration.create_domain_specific_features(dataframe)
+            dataframe = reduce_mem_usage(dataframe)
+            logging.info(f"Final shape of the data is {dataframe.shape}")
 
-            self.split_data_as_train_test(dataframe)
+            logging.info("Creating prepared dataset directory to store prepared data")
+            dir_path = os.path.dirname(self.data_prepration_config.prepared_data_file_path)
+            os.makedirs(dir_path, exist_ok=True)
 
-            # #Let check data drift
-            # prepared_train_file_path=self.data_prepration_config.prepared_train_data_file_path
-            # prepared_test_file_path=self.data_prepration_config.prepared_test_data_file_path
-
-            # train_dataframe = DataPrepration.read_data(prepared_train_file_path)
-            # test_dataframe = DataPrepration.read_data(prepared_test_file_path)
-
-            #status = self.detect_dataset_drift(base_df=train_dataframe,current_df=test_dataframe)
+            logging.info(f"Prepared dataset saved successfully")
+            dataframe.to_csv(
+                self.data_prepration_config.prepared_data_file_path, index=False, header=True
+            )
 
             data_prepration_artifact = DataPreprationArtifact(
-                validation_status=None,
-                prepared_train_file_path=self.data_prepration_config.prepared_train_data_file_path,
-                prepared_test_file_path=self.data_prepration_config.prepared_test_data_file_path,
+                prepared_data_file_path=self.data_prepration_config.prepared_data_file_path,
                 drift_report_file_path=self.data_prepration_config.drift_report_file_path,
             )
 
             logging.info(f"Data prepration artifact: {data_prepration_artifact}")
-
             return data_prepration_artifact
         except Exception as e:
             raise CustomException(e,sys)

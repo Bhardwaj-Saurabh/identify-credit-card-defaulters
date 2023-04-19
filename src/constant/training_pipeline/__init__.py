@@ -4,7 +4,7 @@ SAVED_MODEL_DIR =os.path.join("saved_models")
 
 
 # defining common constant variable for training pipeline
-TARGET_COLUMN = "class"
+TARGET_COLUMN = "isFraud"
 PIPELINE_NAME: str = "creditcard"
 ARTIFACT_DIR: str = "artifact"
 FILE_NAME: str = "creditcarddata.csv"
@@ -40,3 +40,9 @@ DATA_PREPRATION_DIR_NAME: str = "data_prepration"
 DATA_PREPRATION_TRAIN_TEST_SPLIT_RATION: float = 0.2
 DATA_PREPRATION_DRIFT_REPORT_DIR: str = "drift_report"
 DATA_PREPRATION_DRIFT_REPORT_FILE_NAME: str = "report.yaml"
+
+"""
+Data Transformation ralated constant start with DATA_TRANSFORMATION VAR NAME
+"""
+DATA_TRANSFORMATION_DIR_NAME: str = "data_transformation"
+DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR: str = "transformed"

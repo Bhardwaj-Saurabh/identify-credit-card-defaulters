@@ -2,10 +2,11 @@ from src.exception import CustomException
 from src.logger import logging
 from src.entity.config_entity import DataIngestionConfig
 from src.entity.artifact_entity import DataIngestionArtifact
-
+from src.data_access.credit_card_data import CreditCardData
 import os,sys
 from pandas import DataFrame
-from src.data_access.credit_card_data import CreditCardData
+from src.utils.main_utils import reduce_mem_usage
+
 
 class DataIngestion:
 
@@ -23,12 +24,15 @@ class DataIngestion:
             logging.info("Exporting data from mongodb to feature store")
             credit_card_data = CreditCardData()
             dataframe = credit_card_data.export_collection_as_dataframe(collection_name=self.data_ingestion_config.collection_name)
+            dataframe = reduce_mem_usage(dataframe)
+            
             feature_store_file_path = self.data_ingestion_config.feature_store_file_path            
 
             #creating folder
             dir_path = os.path.dirname(feature_store_file_path)
             os.makedirs(dir_path,exist_ok=True)
             dataframe.to_csv(feature_store_file_path,index=False,header=True)
+            logging.info("Data Export completed")
         except  Exception as e:
             raise  CustomException(e,sys)
     

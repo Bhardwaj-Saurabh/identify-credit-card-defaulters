@@ -15,10 +15,10 @@ Training Pipeline:
 2 - data validation pipeline  --> Completed
 
 3 - data preprocessing pipeline --> Completed
-    - data drift monitoring -> pending
-    - feature engineering -> pending
+    - data drift monitoring -> Completed
+    - feature engineering -> Completed
 
-3 - data transformation pipeline
+3 - data transformation pipeline - > Completed
 
 4 - data trainer pipeline
 
