@@ -36,10 +36,10 @@ DATA_VALIDATION_INVALID_DIR: str = "invalid"
 """
 Data prepration realted contant start with DATA_PREPRATION VAR NAME
 """
-DATA_PREPRATION_DIR_NAME: str = "data_prepration"
-DATA_PREPRATION_TRAIN_TEST_SPLIT_RATION: float = 0.2
-DATA_PREPRATION_DRIFT_REPORT_DIR: str = "drift_report"
-DATA_PREPRATION_DRIFT_REPORT_FILE_NAME: str = "report.yaml"
+DATA_PREPARATION_DIR_NAME: str = "data_prepration"
+DATA_PREPARATION_TRAIN_TEST_SPLIT_RATION: float = 0.2
+DATA_PREPARATION_DRIFT_REPORT_DIR: str = "drift_report"
+DATA_PREPARATION_DRIFT_REPORT_FILE_NAME: str = "report.yaml"
 
 """
 Data Transformation ralated constant start with DATA_TRANSFORMATION VAR NAME

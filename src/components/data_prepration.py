@@ -1,6 +1,6 @@
 
 from src.entity.artifact_entity import DataValidationArtifact, DataPreprationArtifact
-from src.entity.config_entity import DataPreprationConfig
+from src.entity.config_entity import DataPreparationConfig
 from src.exception import CustomException
 from src.logger import logging
 import pandas as pd
@@ -14,7 +14,7 @@ from scipy.stats import ks_2samp
 class DataPrepration:
 
     def __init__(self,data_validation_artifact:DataValidationArtifact,
-                        data_prepration_config:DataPreprationConfig):
+                        data_prepration_config:DataPreparationConfig):
         try:
             self.data_validation_artifact=data_validation_artifact
             self.data_prepration_config=data_prepration_config
