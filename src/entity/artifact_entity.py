@@ -30,7 +30,7 @@ class DataValidationArtifact:
     
 
 @dataclass
-class DataPreprationArtifact:
+class DataPreparationArtifact:
     """
     Represents the artifact resulting from data preparation in a training pipeline.
     

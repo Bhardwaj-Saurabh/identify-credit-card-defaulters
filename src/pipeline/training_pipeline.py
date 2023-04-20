@@ -1,14 +1,14 @@
 
 from src.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig
 from src.entity.config_entity import DataPreparationConfig, DataTransformationConfig
-from src.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact, DataPreprationArtifact
+from src.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact, DataPreparationArtifact
 from src.entity.artifact_entity import DataTransformationArtifact
 from src.exception import CustomException
 import sys
 from src.logger import logging
 from src.components.data_ingestion import DataIngestion
 from src.components.data_validation import DataValidation
-from src.components.data_prepration import DataPrepration
+from src.components.data_prepration import DataPreparation
 from src.components.data_transformation import DataTransformation
 
 class TrainPipeline:
@@ -66,7 +66,7 @@ class TrainPipeline:
         except  Exception as e:
             raise  CustomException(e,sys)
         
-    def start_data_preprationtion(self, data_validation_artifact:DataValidationArtifact) -> DataPreprationArtifact:
+    def start_data_preparationtion(self, data_validation_artifact:DataValidationArtifact) -> DataPreparationArtifact:
         """
         Starts the data preparation process for the training pipeline.
 
@@ -77,15 +77,15 @@ class TrainPipeline:
             data_preparation_artifact (DataPreparationArtifact): Artifact of the data preparation process.
         """
         try:
-            data_prepration_config = DataPreparationConfig(training_pipeline_config=self.training_pipeline_config)
-            data_prepration = DataPrepration(data_validation_artifact=data_validation_artifact,
-                                             data_prepration_config=data_prepration_config)
-            data_prepration_artifact = data_prepration.initiate_data_prepration()
-            return data_prepration_artifact
+            data_preparation_config = DataPreparationConfig(training_pipeline_config=self.training_pipeline_config)
+            data_preparation = DataPreparation(data_validation_artifact=data_validation_artifact,
+                                             data_preparation_config=data_preparation_config)
+            data_preparation_artifact = data_preparation.initiate_data_preparation()
+            return data_preparation_artifact
         except  Exception as e:
             raise  CustomException(e,sys)
 
-    def start_data_transformation(self, data_prepration_artifact:DataPreprationArtifact) -> DataTransformationArtifact:
+    def start_data_transformation(self, data_preparation_artifact:DataPreparationArtifact) -> DataTransformationArtifact:
         """
         Starts the data transformation process for the training pipeline.
 
@@ -97,7 +97,7 @@ class TrainPipeline:
         """
         try:
             data_transformation_config = DataTransformationConfig(training_pipeline_config=self.training_pipeline_config)
-            data_transformation = DataTransformation(data_prepration_artifact=data_prepration_artifact,
+            data_transformation = DataTransformation(data_preparation_artifact=data_preparation_artifact,
                                                     data_transformation_config=data_transformation_config)
             data_transformation_artifact =  data_transformation.initiate_data_transformation()
             return data_transformation_artifact
@@ -127,7 +127,7 @@ class TrainPipeline:
         try:
             data_ingestion_artifact:DataIngestionArtifact = self.start_data_ingestion()
             data_validation_artifact=self.start_data_validaton(data_ingestion_artifact=data_ingestion_artifact)
-            data_preparation_artifact = self.start_data_preprationtion(data_validation_artifact=data_validation_artifact)     
-            data_transformation_artifact = self.start_data_transformation(data_prepration_artifact=data_preparation_artifact)  
+            data_preparation_artifact = self.start_data_preparationtion(data_validation_artifact=data_validation_artifact)     
+            data_transformation_artifact = self.start_data_transformation(data_preparation_artifact=data_preparation_artifact)  
         except  Exception as e:
             raise  CustomException(e,sys)
