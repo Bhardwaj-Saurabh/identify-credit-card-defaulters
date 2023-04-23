@@ -2,6 +2,8 @@ import os
 
 SAVED_MODEL_DIR =os.path.join("saved_models")
 
+# define a random seed
+RANDOM_SEED = 27
 
 # defining common constant variable for training pipeline
 TARGET_COLUMN = "isFraud"
@@ -15,7 +17,8 @@ TEST_FILE_NAME: str = "test.csv"
 PREPROCSSING_OBJECT_FILE_NAME = "preprocessing.pkl"
 MODEL_FILE_NAME = "model.pkl"
 SCHEMA_FILE_PATH = os.path.join("config", "schema.yaml")
-SCHEMA_DROP_COLS = "drop_columns"
+SCHEMA_DROP_COLS = "columns_to_drop"
+SCHEMA_PCA_COLS = "columns_PCA_transformation"
 
 
 """
@@ -46,3 +49,14 @@ Data Transformation ralated constant start with DATA_TRANSFORMATION VAR NAME
 """
 DATA_TRANSFORMATION_DIR_NAME: str = "data_transformation"
 DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR: str = "transformed"
+
+"""
+Model Trainer ralated constant start with MODE TRAINER VAR NAME
+"""
+
+MODEL_TRAINER_DIR_NAME: str = "model_trainer"
+MODEL_TRAINER_TRAINED_MODEL_DIR: str = "trained_model"
+MODEL_TRAINER_TRAINED_MODEL_NAME: str = "model.pkl"
+DATA_TRAINNER_TRAIN_TEST_SPLIT_RATION: float = 0.25
+MODEL_TRAINER_EXPECTED_SCORE: float = 0.65
+MODEL_TRAINER_OVER_FIITING_UNDER_FITTING_THRESHOLD: float = 0.05

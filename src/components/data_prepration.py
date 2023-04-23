@@ -38,7 +38,7 @@ class DataPreparation:
             pd.DataFrame: Pandas DataFrame containing the read data.
         """
         try:
-            return pd.read_csv(file_path)
+            return pd.read_csv(file_path, nrows=25000)
         except Exception as e:
             raise CustomException(e, sys)
 
@@ -177,9 +177,9 @@ class DataPreparation:
             file_path = self.data_validation_artifact.valid_file_path
             dataframe = DataPreparation.read_data(file_path)
             dataframe = DataPreparation.preprocess_data(dataframe)
-
             columns_to_keep = DataPreparation.get_list_of_columns_to_drop(dataframe)
             dataframe = dataframe[columns_to_keep]
+            print(dataframe.shape)
             dataframe = DataPreparation.create_domain_specific_features(dataframe)
             dataframe = reduce_mem_usage(dataframe)
             logging.info(f"Final shape of the data is {dataframe.shape}")

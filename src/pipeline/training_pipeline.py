@@ -1,15 +1,19 @@
 
-from src.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig
-from src.entity.config_entity import DataPreparationConfig, DataTransformationConfig
-from src.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact, DataPreparationArtifact
-from src.entity.artifact_entity import DataTransformationArtifact
-from src.exception import CustomException
 import sys
+
+from src.exception import CustomException
 from src.logger import logging
+
 from src.components.data_ingestion import DataIngestion
 from src.components.data_validation import DataValidation
 from src.components.data_prepration import DataPreparation
 from src.components.data_transformation import DataTransformation
+from src.components.model_trainer import ModelTrainer
+
+from src.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig
+from src.entity.config_entity import DataPreparationConfig, DataTransformationConfig, ModelTrainerConfig
+from src.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact, DataPreparationArtifact
+from src.entity.artifact_entity import DataTransformationArtifact, ModelTrainerArtifact
 
 class TrainPipeline:
     """
@@ -104,9 +108,22 @@ class TrainPipeline:
         except  Exception as e:
             raise  CustomException(e,sys)
         
-    def start_model_trainer(self):
+    def start_model_trainer(self, data_transformation_artifact:DataTransformationArtifact) -> ModelTrainerArtifact:
+        """
+        Starts the model trainer process for the training pipeline.
+
+        Args:
+            data_transformation_artifact (DataTransformationArtifact): Artifact of the data transformation process.
+
+        Returns:
+            model_trainer_artifact (ModelTrainerArtifact): Artifact of the model trainer process.
+        """
         try:
-            pass
+            model_trainer_config = ModelTrainerConfig(training_pipeline_config=self.training_pipeline_config)
+            model_trainer = ModelTrainer(model_trainer_config=model_trainer_config,
+                                         data_transformation_artifact=data_transformation_artifact)
+            model_trainer_artifact = model_trainer.initiate_model_trainer()
+            return model_trainer_artifact
         except  Exception as e:
             raise  CustomException(e,sys)
 
@@ -129,5 +146,6 @@ class TrainPipeline:
             data_validation_artifact=self.start_data_validaton(data_ingestion_artifact=data_ingestion_artifact)
             data_preparation_artifact = self.start_data_preparationtion(data_validation_artifact=data_validation_artifact)     
             data_transformation_artifact = self.start_data_transformation(data_preparation_artifact=data_preparation_artifact)  
+            model_trainer_artifact = self.start_model_trainer(data_transformation_artifact)
         except  Exception as e:
             raise  CustomException(e,sys)

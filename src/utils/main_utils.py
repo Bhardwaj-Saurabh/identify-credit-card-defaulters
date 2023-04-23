@@ -52,7 +52,7 @@ def load_numpy_array_data(file_path: str) -> np.array:
             
             # Load numpy array data from file
             with open(file_path, "rb") as file_obj:
-                return np.load(file_obj)
+                return np.load(file_obj, allow_pickle=True)
             
         except Exception as e:
             # Raise a custom exception with error details and system information
